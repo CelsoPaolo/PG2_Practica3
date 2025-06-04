@@ -17,7 +17,6 @@ class Alimento(models.Model):
     nombre = models.CharField(max_length=100, unique=True, verbose_name="Nombre del Alimento")
     descripcion_breve = models.TextField(blank=True, null=True, verbose_name="Descripción Breve")
     es_procesado = models.BooleanField(default=False, verbose_name="Es Procesado")
-    fuente_datos = models.CharField(max_length=100, verbose_name="Fuente de Datos")
     grupo = models.ForeignKey(
         GrupoAlimenticio,
         on_delete=models.SET_NULL,

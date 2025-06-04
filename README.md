@@ -168,7 +168,7 @@ Esta documentación detalla los endpoints principales RESTful disponibles en la 
     * **Ejemplo de Respuesta (200 OK):**
         ```json
         [
-            { "id": 101, "nombre": "Manzana Roja", "es_procesado": false, "grupo": 1 }
+            { "id": 101, "nombre": "Manzana Roja", "es_procesado": false, "grupo": 1, "descripcion_breve": "Fruta crujiente y dulce"}
         ]
         ```
 
@@ -186,7 +186,7 @@ Esta documentación detalla los endpoints principales RESTful disponibles en la 
     * **Ejemplo de Respuesta (200 OK):**
         ```json
         [
-            { "id": 1, "nombre": "Proteínas", "es_macro": true, "unidad_medida_estandar": 1 }
+            { "id": 1, "nombre": "Proteínas", "es_macro": true, "unidad_medida_estandar": 1, "descripcion": "Macronutriente esencial para la construccion muscular" }
         ]
         ```
 
