@@ -16,10 +16,8 @@ class GrupoAlimenticio(models.Model):
 class Alimento(models.Model):
     nombre = models.CharField(max_length=100, unique=True, verbose_name="Nombre del Alimento")
     descripcion_breve = models.TextField(blank=True, null=True, verbose_name="Descripción Breve")
-    imagen_url = models.URLField(blank=True, null=True, verbose_name="URL de Imagen")
     es_procesado = models.BooleanField(default=False, verbose_name="Es Procesado")
     fuente_datos = models.CharField(max_length=100, verbose_name="Fuente de Datos")
-    fecha_ultima_actualizacion = models.DateField(default=timezone.now, verbose_name="Fecha Última Actualización")
     grupo = models.ForeignKey(
         GrupoAlimenticio,
         on_delete=models.SET_NULL,

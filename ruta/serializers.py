@@ -4,11 +4,7 @@ from rest_framework import serializers
 class UnidadDeMedidaSerializer(serializers.ModelSerializer):
     class Meta:
         model = UnidadDeMedida
-        fields = [
-            "simbolo",
-            "nombre_completo",
-            "tipo_unidad",
-        ]
+        fields = "__all__"
 
 class GrupoAlimenticioSerializer(serializers.ModelSerializer):
     class Meta:

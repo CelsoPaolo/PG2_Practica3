@@ -115,131 +115,218 @@ pip install graphviz
 python manage.py graph_models ruta -o diagrama.png
 ```
 
-## Referencia de Endpoints Públicos
 
-Todos los endpoints base se encuentran bajo el prefijo `/api/`. No se requiere autenticación para acceder a estos endpoints, lo que los hace completamente públicos y facilitando las operaciones CRUD (Crear, Leer, Actualizar, Eliminar).
+# Referencia de Endpoints de la API de Alimentos
 
-### 1. Unidades de Medida ( `/api/unidadesdemedida/` )
+Esta documentación detalla los endpoints RESTful disponibles en la API de Alimentos, incluyendo los métodos HTTP, parámetros de consulta (filtros) y la estructura básica del cuerpo de las solicitudes y respuestas.
 
-Gestiona las diferentes unidades de medida utilizadas en la API.
+**Base URL de la API:** `http://127.0.0.1:8000/api/v1/`
 
-* **`GET /api/unidadesdemedida/`**
-    * **Descripción**: Lista todas las unidades de medida.
+---
+
+## 1. Recurso: Unidades de Medida
+
+Representa las unidades de medida utilizadas para los nutrientes y valores.
+
+* **Endpoint:** `/unidades-de-medida/`
+* **Campos Relevantes:** `id`, `simbolo`, `nombre_completo`, `tipo_unidad`
+
+### Métodos Disponibles:
+
+* **`GET /`**
+    * **Descripción:** Obtener una lista de todas las unidades de medida.
+    * **Filtros (Parámetros de Consulta):**
+        * `?search=<texto>`: Búsqueda de texto en `nombre_completo`, `simbolo`, `tipo_unidad`.
     * **Ejemplo de Respuesta (200 OK):**
         ```json
         [
-            {"id": 1, "simbolo": "g", "nombre_completo": "Gramo", "tipo_unidad": "Peso"}
+            { "id": 1, "simbolo": "g", "nombre_completo": "gramos", "tipo_unidad": "peso" }
         ]
         ```
 
-* **`POST /api/unidadesdemedida/`**
-    * **Descripción**: Crea una nueva unidad de medida.
-    * **Argumentos (Body - JSON):**
+* **`POST /`**
+    * **Descripción:** Crear una nueva unidad de medida.
+    * **Cuerpo de la Solicitud (JSON):**
         ```json
-        {"simbolo": "kcal", "nombre_completo": "Kilocaloría", "tipo_unidad": "Energía"}
+        {
+            "simbolo": "mg",
+            "nombre_completo": "miligramos",
+            "tipo_unidad": "peso"
+        }
         ```
+    * **Ejemplo de Respuesta (201 Created):** Objeto creado con su `id`.
 
-* **`GET /api/unidadesdemedida/{id}/`**
-    * **Descripción**: Recupera una unidad de medida específica.
-    * **Ejemplo de Respuesta (200 OK):**
-        ```json
-        {"id": 1, "simbolo": "g", "nombre_completo": "Gramo", "tipo_unidad": "Peso"}
-        ```
+* **`GET /{id}/`**
+    * **Descripción:** Obtener los detalles de una unidad específica.
+    * **Ejemplo:** `GET /api/v1/unidades-de-medida/1/`
 
-* **`PUT /api/unidadesdemedida/{id}/`**
-    * **Descripción**: Actualiza completamente una unidad de medida.
-    * **Argumentos**: Body (JSON) con todos los campos.
+* **`PUT /{id}/`**
+    * **Descripción:** Actualizar *completamente* una unidad existente (requiere todos los campos).
 
-* **`PATCH /api/unidadesdemedida/{id}/`**
-    * **Descripción**: Actualiza parcialmente una unidad de medida.
-    * **Argumentos**: Body (JSON) con los campos a actualizar.
+* **`PATCH /{id}/`**
+    * **Descripción:** Actualizar *parcialmente* una unidad existente (solo campos a modificar).
 
-* **`DELETE /api/unidadesdemedida/{id}/`**
-    * **Descripción**: Elimina una unidad de medida. (Respuesta: `204 No Content`)
+* **`DELETE /{id}/`**
+    * **Descripción:** Eliminar una unidad específica.
 
-### 2. Grupos Alimenticios ( `/api/gruposalimenticios/` )
+---
 
-Clasifica los alimentos en grupos nutricionales.
+## 2. Recurso: Grupos Alimenticios
 
-* **`GET /api/gruposalimenticios/`**
-    * **Descripción**: Lista todos los grupos alimenticios.
-    * **Ejemplo de Respuesta (200 OK):**
-        ```json
-        [
-            {"id": 1, "nombre": "Frutas", "descripcion": "Fuentes de vitaminas y fibra."}
-        ]
-        ```
+Representa las categorías de alimentos (ej., Frutas, Verduras).
 
-* **`POST /api/gruposalimenticios/`**
-    * **Descripción**: Crea un nuevo grupo alimenticio.
-    * **Argumentos (Body - JSON):**
-        ```json
-        {"nombre": "Vegetales", "descripcion": "Ricos en nutrientes."}
-        ```
+* **Endpoint:** `/grupos-alimenticios/`
+* **Campos Relevantes:** `id`, `nombre`, `descripcion`
 
-*(Las operaciones `GET /{id}/`, `PUT /{id}/`, `PATCH /{id}/` y `DELETE /{id}/` funcionan de manera análoga al endpoint de Unidades de Medida.)*
+### Métodos Disponibles:
 
-### 3. Alimentos ( `/api/alimentos/` )
-
-Detalles específicos de cada alimento.
-
-* **`GET /api/alimentos/`**
-    * **Descripción**: Lista todos los alimentos.
+* **`GET /`**
+    * **Descripción:** Listar todos los grupos alimenticios.
+    * **Filtros (Parámetros de Consulta):**
+        * `?search=<texto>`: Búsqueda de texto en `nombre`, `descripcion`.
     * **Ejemplo de Respuesta (200 OK):**
         ```json
         [
-            {"id": 1, "nombre": "Manzana", "grupo": 1, "descripcion_breve": "Fruta común."}
+            { "id": 1, "nombre": "Frutas", "descripcion": "Alimentos dulces y carnosos..." }
         ]
         ```
-* **`POST /api/alimentos/`**
-    * **Descripción**: Crea un nuevo alimento.
-    * **Argumentos (Body - JSON):**
+
+* **`POST /`**
+    * **Descripción:** Crear un nuevo grupo alimenticio.
+    * **Cuerpo de la Solicitud (JSON):**
         ```json
-        {"nombre": "Pollo (pechuga)", "grupo": 2, "descripcion_breve": "Proteína magra."}
+        { "nombre": "Verduras", "descripcion": "Plantas o partes de plantas..." }
         ```
-*(Las operaciones `GET /{id}/`, `PUT /{id}/`, `PATCH /{id}/` y `DELETE /{id}/` funcionan de manera análoga al endpoint de Unidades de Medida.)*
 
-### 4. Nutrientes ( `/api/nutrientes/` )
+* **`GET /{id}/`, `PUT /{id}/`, `PATCH /{id}/`, `DELETE /{id}/`** (para un grupo específico).
 
-Información sobre los diferentes nutrientes.
+---
 
-* **`GET /api/nutrientes/`**
-    * **Descripción**: Lista todos los nutrientes.
+## 3. Recurso: Alimentos
+
+Representa la información detallada sobre un alimento.
+
+* **Endpoint:** `/alimentos/`
+* **Campos Relevantes:** `id`, `nombre`, `descripcion_breve`, `es_procesado`, `fuente_datos`, `grupo` (ID de GrupoAlimenticio)
+
+### Métodos Disponibles:
+
+* **`GET /`**
+    * **Descripción:** Listar todos los alimentos.
+    * **Filtros (Parámetros de Consulta):**
+        * `?search=<texto>`: Búsqueda de texto en `nombre`, `descripcion_breve`, `fuente_datos`.
+        * `?es_procesado=true/false`: Filtrar por si es procesado.
+        * `?grupo=<id_grupo>`: Filtrar por el ID del grupo alimenticio.
     * **Ejemplo de Respuesta (200 OK):**
         ```json
         [
-            {"id": 1, "nombre": "Calorías", "es_macro": true, "unidad_medida_estandar": 2}
+            { "id": 101, "nombre": "Manzana Roja", "es_procesado": false, "grupo": 1 }
         ]
         ```
 
-* **`POST /api/nutrientes/`**
-    * **Descripción**: Crea un nuevo nutriente.
-    * **Argumentos (Body - JSON):**
+* **`POST /`**
+    * **Descripción:** Crear un nuevo alimento.
+    * **Cuerpo de la Solicitud (JSON):**
         ```json
-        {"nombre": "Proteína", "es_macro": true, "unidad_medida_estandar": 1}
+        {
+            "nombre": "Pan Integral",
+            "descripcion_breve": "Producto horneado...",
+            "es_procesado": true,
+            "fuente_datos": "Local",
+            "grupo": 4
+        }
         ```
-*(Las operaciones `GET /{id}/`, `PUT /{id}/`, `PATCH /{id}/` y `DELETE /{id}/` funcionan de manera análoga al endpoint de Unidades de Medida.)*
 
-### 5. Valores Nutricionales ( `/api/valoresnutricionales/` )
+* **`GET /{id}/`, `PUT /{id}/`, `PATCH /{id}/`, `DELETE /{id}/`** (para un alimento específico).
 
-Contenido nutricional de los alimentos.
+---
 
-* **`GET /api/valoresnutricionales/`**
-    * **Descripción**: Lista todos los valores nutricionales.
+## 4. Recurso: Nutrientes
+
+Representa la información sobre los diferentes nutrientes.
+
+* **Endpoint:** `/nutrientes/`
+* **Campos Relevantes:** `id`, `nombre`, `descripcion`, `es_macro`, `unidad_medida_estandar` (ID de UnidadDeMedida)
+
+### Métodos Disponibles:
+
+* **`GET /`**
+    * **Descripción:** Listar todos los nutrientes.
+    * **Filtros (Parámetros de Consulta):**
+        * `?search=<texto>`: Búsqueda de texto en `nombre`, `descripcion`.
+        * `?es_macro=true/false`: Filtrar por si es macronutriente.
+        * `?unidad_medida_estandar=<id_unidad>`: Filtrar por la unidad de medida estándar.
     * **Ejemplo de Respuesta (200 OK):**
         ```json
         [
-            {"id": 1, "alimento": 1, "nutriente": 1, "unidad_medida": 2, "cantidad": 52.0}
+            { "id": 1, "nombre": "Proteínas", "es_macro": true, "unidad_medida_estandar": 1 }
         ]
         ```
 
-* **`POST /api/valoresnutricionales/`**
-    * **Descripción**: Crea un nuevo valor nutricional para un alimento.
-    * **Argumentos (Body - JSON):**
+* **`POST /`**
+    * **Descripción:** Crear un nuevo nutriente.
+    * **Cuerpo de la Solicitud (JSON):**
         ```json
-        {"alimento": 2, "nutriente": 1, "unidad_medida": 1, "cantidad": 25.0, "referencia_por_cantidad": "por 100g", "cantidad_referencia": 100.0}
+        {
+            "nombre": "Vitamina C",
+            "descripcion": "Antioxidante.",
+            "es_macro": false,
+            "unidad_medida_estandar": 3
+        }
         ```
-*(Las operaciones `GET /{id}/`, `PUT /{id}/`, `PATCH /{id}/` y `DELETE /{id}/` funcionan de manera análoga al endpoint de Unidades de Medida.)*
+
+* **`GET /{id}/`, `PUT /{id}/`, `PATCH /{id}/`, `DELETE /{id}/`** (para un nutriente específico).
+
+---
+
+## 5. Recurso: Valores Nutricionales
+
+Representa la cantidad de un nutriente en un alimento específico con una unidad de medida.
+
+* **Endpoint:** `/valores-nutricionales/`
+* **Campos Relevantes:** `id`, `alimento` (ID), `nutriente` (ID), `unidad_medida` (ID), `cantidad`, `referencia_por_cantidad`, `cantidad_referencia`, `porcentaje_vd`
+
+### Métodos Disponibles:
+
+* **`GET /`**
+    * **Descripción:** Listar todos los valores nutricionales.
+    * **Filtros (Parámetros de Consulta):**
+        * `?alimento=<id_alimento>`: Filtrar por ID de alimento.
+        * `?nutriente=<id_nutriente>`: Filtrar por ID de nutriente.
+        * `?unidad_medida=<id_unidad>`: Filtrar por ID de unidad de medida.
+        * `?cantidad=<valor>`, `?cantidad_referencia=<valor>`, `?porcentaje_vd=<valor>`: Filtrar por valores exactos.
+    * **Ejemplo de Respuesta (200 OK):**
+        ```json
+        [
+            {
+                "id": 1,
+                "alimento": 101,
+                "nutriente": 1,
+                "unidad_medida": 1,
+                "cantidad": 0.3,
+                "referencia_por_cantidad": "100g",
+                "cantidad_referencia": 100.0,
+                "porcentaje_vd": null
+            }
+        ]
+        ```
+
+* **`POST /`**
+    * **Descripción:** Crear un nuevo valor nutricional.
+    * **Cuerpo de la Solicitud (JSON):**
+        ```json
+        {
+            "alimento": 101,
+            "nutriente": 4,
+            "unidad_medida": 3,
+            "cantidad": 5.0,
+            "referencia_por_cantidad": "100g",
+            "cantidad_referencia": 100.0,
+            "porcentaje_vd": 8.0
+        }
+        ```
+
+* **`GET /{id}/`, `PUT /{id}/`, `PATCH /{id}/`, `DELETE /{id}/`** (para un valor nutricional específico).
 
 ---
 ## 🚀 Ejemplo de Caso de Uso del API: Cálculo Nutricional de una Receta Simple
@@ -252,65 +339,51 @@ Este ejemplo ilustra cómo un desarrollador podría utilizar la API para gestion
 
 Para lograr esto, necesitamos interactuar con casi todos los endpoints de la API, siguiendo un flujo lógico: primero crear los datos base (unidades, grupos, nutrientes, alimentos) y luego sus valores nutricionales, para finalmente consultarlos.
 
-### Flujo de Interacción con los Endpoints:
+# Ejemplo de Caso de Uso: Registrar un Nuevo Alimento y sus Nutrientes
 
-1.  **Paso 1: Preparar Unidades de Medida Iniciales**
-    * **Propósito:** Registrar las unidades que se usarán para nutrientes y cantidades de alimentos.
-    * **Endpoints Usados:**
-        * **`POST /api/unidadesdemedida/`**:
-            * Se usa para crear "Gramo" (ej. ID 1) con body `{"simbolo": "g", "nombre_completo": "Gramo", "tipo_unidad": "Peso"}`.
-            * Se usa para crear "Kilocaloría" (ej. ID 2) con body `{"simbolo": "kcal", "nombre_completo": "Kilocaloría", "tipo_unidad": "Energía"}`.
+Este ejemplo muestra una secuencia común de interacciones con la API para añadir un nuevo alimento y sus datos nutricionales.
 
-2.  **Paso 2: Definir Grupos Alimenticios**
-    * **Propósito:** Clasificar los alimentos que se añadirán.
-    * **Endpoints Usados:**
-        * **`POST /api/gruposalimenticios/`**:
-            * Se usa para crear "Frutas" (ej. ID 1) con body `{"nombre": "Frutas", "descripcion": "Frutas."}`.
-            * Se usa para crear "Proteínas" (ej. ID 2) con body `{"nombre": "Proteínas", "descripcion": "Alimentos ricos en proteínas."}`.
+**Objetivo:** Añadir "Kiwi Fresco" con su información nutricional.
 
-3.  **Paso 3: Registrar Nutrientes Clave**
-    * **Propósito:** Definir los nutrientes específicos que se rastrearán (Proteínas y Calorías).
-    * **Endpoints Usados:**
-        * **`POST /api/nutrientes/`**:
-            * Se usa para crear "Proteína" (ej. ID 1) con body `{"nombre": "Proteína", "descripcion": "Macronutriente.", "es_macro": true, "unidad_medida_estandar": 1}` (referencia a "Gramo" de Unidades de Medida).
-            * Se usa para crear "Calorías" (ej. ID 2) con body `{"nombre": "Calorías", "descripcion": "Unidad de energía.", "es_macro": true, "unidad_medida_estandar": 2}` (referencia a "Kilocaloría" de Unidades de Medida).
+**Pasos Clave:**
 
-4.  **Paso 4: Añadir los Alimentos de la Receta**
-    * **Propósito:** Registrar los alimentos principales de la ensalada.
-    * **Endpoints Usados:**
-        * **`POST /api/alimentos/`**:
-            * Se usa para crear "Manzana" (ej. ID 1) con body `{"nombre": "Manzana", "descripcion_breve": "Fruta común.", "es_procesado": false, "fuente_datos": "USDA", "fecha_ultima_actualizacion": "2025-05-24", "grupo": 1}` (referencia a "Frutas").
-            * Se usa para crear "Pollo (Pechuga)" (ej. ID 2) con body `{"nombre": "Pollo (Pechuga)", "descripcion_breve": "Pechuga sin piel.", "es_procesado": false, "fuente_datos": "USDA", "fecha_ultima_actualizacion": "2025-05-24", "grupo": 2}` (referencia a "Proteínas").
+1.  **Preparar Datos de Referencia:**
+    * Verificar o crear **Unidades de Medida** (ej., "gramos", "miligramos") usando `GET /api/v1/unidades-de-medida/` y `POST /api/v1/unidades-de-medida/`.
+    * Verificar o crear **Grupos Alimenticios** (ej., "Frutas") usando `GET /api/v1/grupos-alimenticios/` y `POST /api/v1/grupos-alimenticios/`.
+    * Verificar o crear **Nutrientes** (ej., "Vitamina C", "Fibra") usando `GET /api/v1/nutrientes/` y `POST /api/v1/nutrientes/`.
 
-5.  **Paso 5: Asignar Valores Nutricionales a los Alimentos**
-    * **Propósito:** Definir la composición nutricional (proteínas y calorías) por cada 100g de manzana y pollo.
-    * **Endpoints Usados:**
-        * **`POST /api/valoresnutricionales/`**:
-            * **Para Manzana:**
-                * Proteínas: Body `{"alimento": 1, "nutriente": 1, "unidad_medida": 1, "cantidad": 0.3, "referencia_por_cantidad": "por 100g", "cantidad_referencia": 100.0, "porcentaje_vd": null}` (0.3g de Proteína por 100g).
-                * Calorías: Body `{"alimento": 1, "nutriente": 2, "unidad_medida": 2, "cantidad": 52.0, "referencia_por_cantidad": "por 100g", "cantidad_referencia": 100.0, "porcentaje_vd": null}` (52 kcal por 100g).
-            * **Para Pollo:**
-                * Proteínas: Body `{"alimento": 2, "nutriente": 1, "unidad_medida": 1, "cantidad": 25.0, "referencia_por_cantidad": "por 100g", "cantidad_referencia": 100.0, "porcentaje_vd": null}` (25g de Proteína por 100g).
-                * Calorías: Body `{"alimento": 2, "nutriente": 2, "unidad_medida": 2, "cantidad": 165.0, "referencia_por_cantidad": "por 100g", "cantidad_referencia": 100.0, "porcentaje_vd": null}` (165 kcal por 100g).
+2.  **Crear el Alimento:**
+    * **Endpoint:** `POST /api/v1/alimentos/`
+    * **Cuerpo (JSON):**
+        ```json
+        {
+            "nombre": "Kiwi Fresco",
+            "descripcion_breve": "...",
+            "es_procesado": false,
+            "fuente_datos": "...",
+            "grupo": <id_grupo_frutas>
+        }
+        ```
+    * **Resultado:** Obtener el `id` del nuevo alimento (ej., `205`).
 
-6.  **Paso 6: Realizar Consultas para el Cálculo de la Receta**
-    * **Propósito:** Obtener los valores nutricionales registrados para cada alimento y calcular el total para las porciones de la receta.
-    * **Endpoints Usados:**
-        * **`GET /api/valoresnutricionales/?alimento=1`**: Se usa para obtener todos los valores nutricionales de la Manzana (ID 1).
-        * **`GET /api/valoresnutricionales/?alimento=2`**: Se usa para obtener todos los valores nutricionales del Pollo (ID 2).
+3.  **Añadir Valores Nutricionales:**
+    * **Endpoint:** `POST /api/v1/valores-nutricionales/` (repetir para cada nutriente).
+    * **Cuerpo (JSON):**
+        ```json
+        {
+            "alimento": 205, // ID del "Kiwi Fresco"
+            "nutriente": <id_vitamina_c>,
+            "unidad_medida": <id_miligramos>,
+            "cantidad": 92.7,
+            "referencia_por_cantidad": "100g",
+            "cantidad_referencia": 100.0,
+            "porcentaje_vd": 103.0
+        }
+        ```
+    * **Resultado:** Registrar los detalles nutricionales para Vitamina C, Fibra, Azúcares, etc.
 
-    * **Cálculo (Lógica de la Aplicación Cliente):**
-        * **Manzana (150g):**
-            * Proteínas: (0.3g / 100g) * 150g = **0.45g**
-            * Calorías: (52.0 kcal / 100g) * 150g = **78 kcal**
-        * **Pollo (120g):**
-            * Proteínas: (25.0g / 100g) * 120g = **30g**
-            * Calorías: (165.0 kcal / 100g) * 120g = **198 kcal**
-
-    * **Resultado Total de la Receta:**
-        * **Proteínas Totales:** 0.45g (Manzana) + 30g (Pollo) = **30.45g**
-        * **Calorías Totales:** 78 kcal (Manzana) + 198 kcal (Pollo) = **276 kcal**
-
-Este caso de uso demuestra cómo, al poblar la base de datos a través de los endpoints `POST` y luego consultarla con `GET` (utilizando la capacidad de filtrado que ofrece DRF), una aplicación externa puede utilizar esta API para construir funcionalidades complejas como calculadoras nutricionales para recetas.
+4.  **Verificar (Opcional):**
+    * **Endpoint:** `GET /api/v1/alimentos/205/`
+    * **Resultado:** Confirmar que "Kiwi Fresco" y sus relaciones nutricionales se muestran correctamente. (Nota: La inclusión de los valores nutricionales directamente en la respuesta del alimento depende de la configuración de tus serializers anidados).
 
 ---
