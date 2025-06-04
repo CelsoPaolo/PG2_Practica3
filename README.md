@@ -210,18 +210,7 @@ Esta documentación detalla los endpoints principales RESTful disponibles en la 
         ]
         ```
 
----
 
----
-## 🚀 Ejemplo de Caso de Uso del API: Cálculo Nutricional de una Receta Simple
-
-Este ejemplo ilustra cómo un desarrollador podría utilizar la API para gestionar y calcular el contenido nutricional de una receta básica, como una "Ensalada de Pollo y Manzana".
-
-**Objetivo del Caso de Uso:** Determinar la cantidad total de **Proteínas** y **Calorías** en una porción específica de "Ensalada de Pollo y Manzana", asumiendo las siguientes cantidades:
-* **Manzana:** 150 gramos
-* **Pollo (Pechuga):** 120 gramos
-
-Para lograr esto, necesitamos interactuar con casi todos los endpoints de la API, siguiendo un flujo lógico: primero crear los datos base (unidades, grupos, nutrientes, alimentos) y luego sus valores nutricionales, para finalmente consultarlos.
 
 # Ejemplo de Caso de Uso: Registrar un Nuevo Alimento y sus Nutrientes
 
