@@ -46,7 +46,5 @@ class ValorNutricionalViewSet(viewsets.ModelViewSet):
         'alimento',          
         'nutriente',         
         'unidad_medida',     
-        'cantidad',         
-        'cantidad_referencia', 
-        'porcentaje_vd'      
+        'cantidad',               
     ]

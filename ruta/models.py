@@ -64,7 +64,6 @@ class ValorNutricional(models.Model):
     )
 
     cantidad = models.FloatField(verbose_name="Cantidad")
-    porcentaje_vd = models.FloatField(blank=True, null=True, verbose_name="% Valor Diario") 
 
 
 
