@@ -259,4 +259,64 @@ Este ejemplo muestra una secuencia común de interacciones con la API para añad
     * **Endpoint:** `GET /api/v1/alimentos/205/`
     * **Resultado:** Confirmar que "Kiwi Fresco" y sus relaciones nutricionales se muestran correctamente. (Nota: La inclusión de los valores nutricionales directamente en la respuesta del alimento depende de la configuración de tus serializers anidados).
 
+
+
+# Ejemplo de Caso de Uso: Registrar un Nuevo Alimento "Pechuga de Pollo" y sus Nutrientes
+
+Este ejemplo muestra una secuencia común de interacciones con la API para añadir un nuevo alimento (`"Pechuga de Pollo"`) y sus datos nutricionales detallados.
+
+**Objetivo:** Añadir "Pechuga de Pollo" con su información nutricional.
+
+**Pasos Clave:**
+
+1.  **Preparar Datos de Referencia:**
+    * Verificar o crear **Unidades de Medida** (ej., "gramos", "miligramos") usando `GET /api/v1/unidades-de-medida/` y `POST /api/v1/unidades-de-medida/`.
+    * Verificar o crear **Grupos Alimenticios** (ej., "Carnes y Aves") usando `GET /api/v1/grupos-alimenticios/` y `POST /api/v1/grupos-alimenticios/`.
+    * Verificar o crear **Nutrientes** (ej., "Proteínas", "Grasa", "Vitamina B3") usando `GET /api/v1/nutrientes/` y `POST /api/v1/nutrientes/`.
+
+2.  **Crear el Alimento: "Pechuga de Pollo"**
+    * **Endpoint:** `POST /api/v1/alimentos/`
+    * **Cuerpo (JSON):**
+        ```json
+        {
+            "nombre": "Pechuga de Pollo",
+            "descripcion_breve": "Corte magro de carne de ave.",
+            "es_procesado": false,
+            "fuente_datos": "USDA FoodData Central",
+            "grupo": "<id_grupo_carnes_aves>" 
+        }
+        ```
+    * **Resultado:** Obtener el `id` del nuevo alimento (ej., `301`).
+
+3.  **Añadir Valores Nutricionales para "Pechuga de Pollo":**
+    * **Endpoint:** `POST /api/v1/valores-nutricionales/` (repetir para cada nutriente).
+    * **Cuerpo (JSON) - Ejemplo para Proteínas:**
+        ```json
+        {
+            "alimento": 301,                
+            "nutriente": "<id_proteinas>",  
+            "unidad_medida": "<id_gramos>", 
+            "cantidad": 31.0,
+            "referencia_por_cantidad": "100g",
+            "cantidad_referencia": 100.0,
+            "porcentaje_vd": 62.0
+        }
+        ```
+    * **Cuerpo (JSON) - Ejemplo para Grasa:**
+        ```json
+        {
+            "alimento": 301,               // ID de "Pechuga de Pollo"
+            "nutriente": "<id_grasa>",     // ID del nutriente "Grasa"
+            "unidad_medida": "<id_gramos>",// ID de "gramos"
+            "cantidad": 3.6,
+            "referencia_por_cantidad": "100g",
+            "cantidad_referencia": 100.0,
+            "porcentaje_vd": null
+        }
+        ```
+    * **Resultado:** Registrar los detalles nutricionales para Proteínas, Grasa, etc.
+
+4.  **Verificar (Opcional):**
+    * **Endpoint:** `GET /api/v1/alimentos/301/`
+    * **Resultado:** Confirmar que "Pechuga de Pollo" y sus relaciones nutricionales se muestran correctamente. (Nota: La inclusión de los valores nutricionales directamente en la respuesta del alimento depende de la configuración de tus serializers anidados).
 ---

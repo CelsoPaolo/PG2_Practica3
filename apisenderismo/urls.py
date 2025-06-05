@@ -31,5 +31,5 @@ router.register(r"ValorNutricional", ValorNutricionalViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/', include(router.urls)),
+    path('api/', include(router.urls)),
 ]
