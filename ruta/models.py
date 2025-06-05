@@ -64,8 +64,6 @@ class ValorNutricional(models.Model):
     )
 
     cantidad = models.FloatField(verbose_name="Cantidad")
-    referencia_por_cantidad = models.CharField(max_length=50, verbose_name="Referencia por Cantidad") 
-    cantidad_referencia = models.FloatField(verbose_name="Cantidad de Referencia") 
     porcentaje_vd = models.FloatField(blank=True, null=True, verbose_name="% Valor Diario") 
 
 

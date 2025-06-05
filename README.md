@@ -247,10 +247,6 @@ Este ejemplo muestra una secuencia común de interacciones con la API para añad
             "alimento": 205, // ID del "Kiwi Fresco"
             "nutriente": <id_vitamina_c>,
             "unidad_medida": <id_miligramos>,
-            "cantidad": 92.7,
-            "referencia_por_cantidad": "100g",
-            "cantidad_referencia": 100.0,
-            "porcentaje_vd": 103.0
         }
         ```
     * **Resultado:** Registrar los detalles nutricionales para Vitamina C, Fibra, Azúcares, etc.
