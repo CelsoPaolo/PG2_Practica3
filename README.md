@@ -244,7 +244,7 @@ Este ejemplo muestra una secuencia común de interacciones con la API para añad
     * **Cuerpo (JSON):**
         ```json
         {
-            "alimento": 205, // ID del "Kiwi Fresco"
+            "alimento": 205, 
             "nutriente": <id_vitamina_c>,
             "unidad_medida": <id_miligramos>,
         }
