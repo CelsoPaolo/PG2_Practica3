@@ -305,8 +305,6 @@ Este ejemplo muestra una secuencia común de interacciones con la API para añad
             "nutriente": "<id_grasa>",     // ID del nutriente "Grasa"
             "unidad_medida": "<id_gramos>",// ID de "gramos"
             "cantidad": 3.6,
-            "referencia_por_cantidad": "100g",
-            "cantidad_referencia": 100.0,
             "porcentaje_vd": null
         }
         ```
