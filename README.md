@@ -238,7 +238,6 @@ Este ejemplo muestra una secuencia común de interacciones con la API para añad
             "nombre": "Kiwi Fresco",
             "descripcion_breve": "...",
             "es_procesado": false,
-            "fuente_datos": "...",
             "grupo": <id_grupo_frutas>
         }
         ```
@@ -298,9 +297,6 @@ Este ejemplo muestra una secuencia común de interacciones con la API para añad
             "nutriente": "<id_proteinas>",  
             "unidad_medida": "<id_gramos>", 
             "cantidad": 31.0,
-            "referencia_por_cantidad": "100g",
-            "cantidad_referencia": 100.0,
-            "porcentaje_vd": 62.0
         }
         ```
     * **Cuerpo (JSON) - Ejemplo para Grasa:**
@@ -310,7 +306,6 @@ Este ejemplo muestra una secuencia común de interacciones con la API para añad
             "nutriente": "<id_grasa>",     
             "unidad_medida": "<id_gramos>",
             "cantidad": 3.6,
-            "porcentaje_vd": null
         }
         ```
     * **Resultado:** Registrar los detalles nutricionales para Proteínas, Grasa, etc.
