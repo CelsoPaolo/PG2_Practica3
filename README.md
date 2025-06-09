@@ -210,7 +210,7 @@ Esta documentación detalla los endpoints principales RESTful disponibles en la 
         [
             {
                 "id": 1, "alimento": 101, "nutriente": 1, "unidad_medida": 1,
-                "cantidad": 0.3, "referencia_por_cantidad": "100g", "cantidad_referencia": 100.0, "porcentaje_vd": null
+                "cantidad": 0.3
             }
         ]
         ```
@@ -306,9 +306,9 @@ Este ejemplo muestra una secuencia común de interacciones con la API para añad
     * **Cuerpo (JSON) - Ejemplo para Grasa:**
         ```json
         {
-            "alimento": 301,               // ID de "Pechuga de Pollo"
-            "nutriente": "<id_grasa>",     // ID del nutriente "Grasa"
-            "unidad_medida": "<id_gramos>",// ID de "gramos"
+            "alimento": 301,             
+            "nutriente": "<id_grasa>",     
+            "unidad_medida": "<id_gramos>",
             "cantidad": 3.6,
             "porcentaje_vd": null
         }
