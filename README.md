@@ -116,6 +116,11 @@ python manage.py graph_models ruta -o diagrama.png
 ```
 
 
+# Diagrama de entidad relacion 
+
+![Texto alternativo](dia.png) 
+
+
 # Referencia de Endpoints de la API de Alimentos
 
 Esta documentación detalla los endpoints principales RESTful disponibles en la API de Alimentos, enfocándose en la recuperación de listas de recursos y sus filtros.
